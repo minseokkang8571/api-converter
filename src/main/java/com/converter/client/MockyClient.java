@@ -10,6 +10,6 @@ public interface MockyClient {
     @GetMapping("/0a1f12eeeb7f467890c626379e488adb")
     JSONObject getJson();
 
-    @GetMapping("/4ee210e7262f4feba335d8da975fe393")
+    @GetMapping("/0a047cf786114fd48f948a405567de29")
     String getUrlencoded();
 }

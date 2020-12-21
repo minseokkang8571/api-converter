@@ -25,7 +25,11 @@ public class BodyConverter {
                     try {
                         String value = String.valueOf(map.get(key));
                         if (value.charAt(0) == '{') {
-                            value = value.replaceAll("=", ":");
+                            String[] valueSplit = value.split(",");
+                            for(String s: valueSplit) {
+                                String replacedStr = s.replaceFirst("=", ":");
+                                value = value.replace(s, replacedStr);
+                            }
                         }
                         return value != null && value.length() > 0
                                 ? key + "=" + URLEncoder.encode(value, StandardCharsets.UTF_8.toString())
@@ -44,22 +48,21 @@ public class BodyConverter {
         try {
             String jsonStr = paramIn;
             String[] split = (paramIn.split("[=&]"));
-
             for (int i = 0; i < split.length; i++) {
+                String decodedStr = URLDecoder.decode(split[i], StandardCharsets.UTF_8.toString());
                 if(split[i].charAt(0) == '%') {
-                    String decodedStr = URLDecoder.decode(split[i], StandardCharsets.UTF_8.toString());
                     String[] decodedSplit = decodedStr.substring(1).split("[:,}]");
                     for(String s: decodedSplit) {
-                        decodedStr = decodedStr.replaceAll(s , "\"" + s.replaceAll("\\s", "") + "\"");
+                        decodedStr = decodedStr.replace(s , "\"" + s.replaceAll("\\s", "") + "\"");
                     }
                     jsonStr = jsonStr.replace(split[i], decodedStr);
                 } else {
-                    jsonStr = jsonStr.replaceAll("(?<!\")" + split[i] + "(?!\")", "\"" + split[i] + "\"");
+                    jsonStr = jsonStr.replaceAll("(?<!\")" + split[i] + "(?!\")", "\"" + decodedStr + "\"");
                 }
             }
 
             jsonStr = jsonStr
-                    .replaceAll("=", ":")
+                    .replaceAll("(?<=\")" + "=" + "(?=[\"{])", ":")
                     .replaceAll("&", ",");
             jsonStr = "{" + jsonStr + "}";
             Object obj = jsonParser.parse(jsonStr);
