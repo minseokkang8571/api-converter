@@ -1,0 +1,8 @@
+mocky-api:
+  url: http://123.2.134.55:11111/fs
+
+feign.okhttp.enabled: true
+
+logging:
+  level:
+    com.converter.client: DEBUG
