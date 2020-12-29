@@ -1,12 +1,13 @@
 package com.converter.util;
 
+import com.converter.dto.User;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -18,19 +19,12 @@ public class BodyConverter {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final JSONParser jsonParser = new JSONParser();
 
-    public static String convertToUrlEncoded(JSONObject obj) {
-        Map<String, String> map = objectMapper.convertValue(obj, Map.class);
+    public static String convertToUrlEncoded(User user) {
+        Map<String, String> map = objectMapper.convertValue(user, Map.class);
         return map.keySet().stream()
                 .map(key -> {
                     try {
                         String value = String.valueOf(map.get(key));
-                        if (value.charAt(0) == '{') {
-                            String[] valueSplit = value.split(",");
-                            for(String s: valueSplit) {
-                                String replacedStr = s.replaceFirst("=", ":");
-                                value = value.replace(s, replacedStr);
-                            }
-                        }
                         return value != null && value.length() > 0
                                 ? key + "=" + URLEncoder.encode(value, StandardCharsets.UTF_8.toString())
                                 : null;
@@ -44,32 +38,15 @@ public class BodyConverter {
                 .collect(joining("&"));
     }
 
-    public static JSONObject convertToJson(String paramIn) {
+    public static JSONObject convertToJson(User user) {
         try {
-            String jsonStr = paramIn;
-            String[] split = (paramIn.split("[=&]"));
-            for (int i = 0; i < split.length; i++) {
-                String decodedStr = URLDecoder.decode(split[i], StandardCharsets.UTF_8.toString());
-                if(split[i].charAt(0) == '%') {
-                    String[] decodedSplit = decodedStr.substring(1).split("[:,}]");
-                    for(String s: decodedSplit) {
-                        decodedStr = decodedStr.replace(s , "\"" + s.replaceAll("\\s", "") + "\"");
-                    }
-                    jsonStr = jsonStr.replace(split[i], decodedStr);
-                } else {
-                    jsonStr = jsonStr.replaceAll("(?<!\")" + split[i] + "(?!\")", "\"" + decodedStr + "\"");
-                }
-            }
+            String userString = objectMapper.writeValueAsString(user);
+            JSONObject userJson = (JSONObject) jsonParser.parse(userString);
 
-            jsonStr = jsonStr
-                    .replaceAll("(?<=\")" + "=" + "(?=[\"{])", ":")
-                    .replaceAll("&", ",");
-            jsonStr = "{" + jsonStr + "}";
-            Object obj = jsonParser.parse(jsonStr);
-            JSONObject jsonObj = (JSONObject) obj;
-
-            return jsonObj;
-        } catch (ParseException | UnsupportedEncodingException e) {
+            return userJson;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
 

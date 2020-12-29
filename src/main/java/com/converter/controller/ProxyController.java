@@ -1,8 +1,10 @@
 package com.converter.controller;
 
+import com.converter.dto.User;
 import com.converter.service.ProxyService;
 import org.json.simple.JSONObject;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,12 +19,12 @@ public class ProxyController {
     }
 
     @PostMapping(value = "/proxy", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public JSONObject proxy(@RequestBody String string) {
-        return proxyService.urlencodedToJson(string);
+    public JSONObject proxyURL(@ModelAttribute User user) {
+        return proxyService.convertToJson(user);
     }
 
     @PostMapping(value = "/proxy", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String proxy(@RequestBody JSONObject object) {
-        return proxyService.jsonToUrlencoded(object);
+    public String proxyJSON(@RequestBody User user) {
+        return proxyService.jsonToUrlencoded(user);
     }
 }

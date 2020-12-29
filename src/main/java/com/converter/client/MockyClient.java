@@ -1,15 +1,17 @@
 package com.converter.client;
 
-import org.json.simple.JSONObject;
+import com.converter.config.FeignConfiguration;
+import com.converter.dto.User;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient(name = "mocky", url = "${mocky-api.url}")
+@FeignClient(name = "mocky", url = "${mocky-api.url}", configuration = {FeignConfiguration.class})
 public interface MockyClient {
 
-    @GetMapping("/0a1f12eeeb7f467890c626379e488adb")
-    JSONObject getJson();
+    @GetMapping("/0fb37d47d44949be99564fec38ea8f20")
+    User getJson();
 
-    @GetMapping("/0a047cf786114fd48f948a405567de29")
-    String getUrlencoded();
+    @GetMapping("/c188d299a7564d758f52e172dc0c0028")
+    MultiValueMap getUrlencoded();
 }

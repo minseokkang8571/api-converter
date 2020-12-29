@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/mocky")
 public class MockyController {
+
     private final MockyService mockyService;
 
     public MockyController(MockyService mockyService) {
