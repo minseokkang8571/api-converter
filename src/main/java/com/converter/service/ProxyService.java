@@ -2,7 +2,6 @@ package com.converter.service;
 
 import com.converter.dto.User;
 import com.converter.util.BodyConverter;
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
