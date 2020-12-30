@@ -12,6 +12,6 @@ public interface MockyClient {
     @GetMapping("/0fb37d47d44949be99564fec38ea8f20")
     User getJson();
 
-    @GetMapping("/c188d299a7564d758f52e172dc0c0028")
+    @GetMapping("/966c12d47fc441f9a2d77e3e8725be14")
     MultiValueMap getUrlencoded();
 }
