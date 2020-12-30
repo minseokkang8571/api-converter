@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Service
 public class ProxyService {
 
-    public JSONObject convertToJson(@ModelAttribute User user) {
+    public Object convertToJson(@ModelAttribute User user) {
         return BodyConverter.convertToJson(user);
     }
 

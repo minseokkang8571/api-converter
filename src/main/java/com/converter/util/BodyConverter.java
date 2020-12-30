@@ -3,7 +3,6 @@ package com.converter.util;
 import com.converter.dto.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -18,6 +17,10 @@ public class BodyConverter {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final JSONParser jsonParser = new JSONParser();
+
+    private BodyConverter() {
+
+    }
 
     public static String convertToUrlEncoded(User user) {
         Map<String, String> map = objectMapper.convertValue(user, Map.class);
@@ -38,15 +41,13 @@ public class BodyConverter {
                 .collect(joining("&"));
     }
 
-    public static JSONObject convertToJson(User user) {
+    public static Object convertToJson(User user) {
         try {
             String userString = objectMapper.writeValueAsString(user);
-            JSONObject userJson = (JSONObject) jsonParser.parse(userString);
+            Object userJson = jsonParser.parse(userString);
 
             return userJson;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        } catch (JsonProcessingException e) {
+        } catch (JsonProcessingException | ParseException e) {
             e.printStackTrace();
         }
 

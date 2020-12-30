@@ -2,7 +2,6 @@ package com.converter.controller;
 
 import com.converter.dto.User;
 import com.converter.service.ProxyService;
-import org.json.simple.JSONObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +18,7 @@ public class ProxyController {
     }
 
     @PostMapping(value = "/proxy", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public JSONObject proxyURL(@ModelAttribute User user) {
+    public Object proxyURL(@ModelAttribute User user) {
         return proxyService.convertToJson(user);
     }
 
