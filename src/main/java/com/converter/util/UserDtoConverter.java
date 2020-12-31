@@ -10,13 +10,9 @@ public class UserDtoConverter {
     }
 
     public static User convert(MultiValueMap<String, String> userMap) {
-        User user = new User();
-        user.setFirstName(userMap.getFirst("firstName"));
-        user.setLastName(userMap.getFirst("lastName"));
-        user.setId(Integer.parseInt(userMap.getFirst("id")));
-        user.setAge(Integer.parseInt(userMap.getFirst("age")));
-        user.setBookList(ArrayStringConverter.convert(userMap.getFirst("bookList")));
 
-        return user;
+        return User.create(Integer.parseInt(userMap.getFirst("id")), userMap.getFirst("firstName"),
+                userMap.getFirst("lastName"), Integer.parseInt(userMap.getFirst("age")),
+                ArrayStringConverter.convert(userMap.getFirst("bookList")));
     }
 }
