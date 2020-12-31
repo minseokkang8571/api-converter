@@ -1,5 +1,6 @@
 package com.converter.controller;
 
+import com.converter.dto.User;
 import com.converter.service.MockyService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ public class MockyController {
     }
 
     @GetMapping("url")
-    public Object getUrlencoded() {
+    public User getUrlencoded() {
         return mockyService.urlencodedToJson();
     }
 }

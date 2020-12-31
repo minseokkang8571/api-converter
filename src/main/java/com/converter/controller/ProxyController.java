@@ -18,7 +18,7 @@ public class ProxyController {
     }
 
     @PostMapping(value = "/proxy", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Object proxyURL(@ModelAttribute User user) {
+    public User proxyURL(@ModelAttribute User user) {
         return proxyService.convertToJson(user);
     }
 

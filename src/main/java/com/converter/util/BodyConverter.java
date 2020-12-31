@@ -2,10 +2,7 @@ package com.converter.util;
 
 import com.converter.dto.User;
 import com.converter.error.exception.ConvertException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -17,7 +14,6 @@ import static java.util.stream.Collectors.joining;
 public class BodyConverter {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    private static final JSONParser jsonParser = new JSONParser();
 
     private BodyConverter() {
 
@@ -38,16 +34,5 @@ public class BodyConverter {
                 })
                 .filter(value -> value != null)
                 .collect(joining("&"));
-    }
-
-    public static Object convertToJson(User user) {
-        try {
-            String userString = objectMapper.writeValueAsString(user);
-            Object userJson = jsonParser.parse(userString);
-
-            return userJson;
-        } catch (JsonProcessingException | ParseException e) {
-            throw new ConvertException();
-        }
     }
 }
