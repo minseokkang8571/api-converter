@@ -1,10 +1,8 @@
 package com.converter.service;
 
 import com.converter.client.MockyClient;
-import com.converter.dto.User;
 import com.converter.util.BodyConverter;
 import com.converter.util.UserDtoConverter;
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 
@@ -21,7 +19,7 @@ public class MockyService {
         return BodyConverter.convertToUrlEncoded(mockyClient.getJson());
     }
 
-    public JSONObject urlencodedToJson() {
+    public Object urlencodedToJson() {
         MultiValueMap<String, String> userMap = mockyClient.getUrlencoded();
         return BodyConverter.convertToJson(UserDtoConverter.convert(userMap));
     }

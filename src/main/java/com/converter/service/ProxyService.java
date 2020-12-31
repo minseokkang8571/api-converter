@@ -2,7 +2,6 @@ package com.converter.service;
 
 import com.converter.dto.User;
 import com.converter.util.BodyConverter;
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Service
 public class ProxyService {
 
-    public JSONObject convertToJson(@ModelAttribute User user) {
+    public Object convertToJson(@ModelAttribute User user) {
         return BodyConverter.convertToJson(user);
     }
 
