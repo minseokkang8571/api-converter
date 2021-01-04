@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient(name = "mocky", url = "${mocky-api.url}", configuration = {FeignConfiguration.class})
 public interface MockyClient {
 
-    @GetMapping("/0fb37d47d44949be99564fec38ea8f20")
+    @GetMapping("/de82756b449c4bc8a594d089cbeb44bf")
     User getJson();
 
     @GetMapping("/c188d299a7564d758f52e172dc0c0028")

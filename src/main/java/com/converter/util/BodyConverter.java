@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
+import java.util.Objects;
 
 import static java.util.stream.Collectors.joining;
 
@@ -32,7 +33,7 @@ public class BodyConverter {
                         throw new ConvertException();
                     }
                 })
-                .filter(value -> value != null)
+                .filter(Objects::nonNull)
                 .collect(joining("&"));
     }
 }
