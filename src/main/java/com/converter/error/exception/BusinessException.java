@@ -3,6 +3,11 @@ package com.converter.error.exception;
 public class BusinessException extends RuntimeException{
     private ErrorCode errorCode;
 
+    public BusinessException(String message, Exception e, ErrorCode errorCode) {
+        super(message, e);
+        this.errorCode = errorCode;
+    }
+
     public BusinessException(String message, ErrorCode errorCode) {
         super(message);
         this.errorCode = errorCode;

@@ -2,6 +2,7 @@ package com.converter.util;
 
 import com.converter.dto.User;
 import com.converter.error.exception.ConvertException;
+import com.converter.error.exception.ErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.UnsupportedEncodingException;
@@ -30,7 +31,7 @@ public class BodyConverter {
                                 ? key + "=" + URLEncoder.encode(value, StandardCharsets.UTF_8.toString())
                                 : null;
                     } catch (UnsupportedEncodingException e) {
-                        throw new ConvertException();
+                        throw new ConvertException(e.getMessage(), e, ErrorCode.INVALID_INPUT_VALUE);
                     }
                 })
                 .filter(Objects::nonNull)

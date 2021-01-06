@@ -5,12 +5,14 @@ import java.util.List;
 
 public class ArrayStringConverter {
 
+    private static final String REGEX = ",";
+
     private ArrayStringConverter() {
 
     }
 
-    public static List<String> convert(String ArrayStringValue) {
-        String onlyValue = ArrayStringValue.substring(1, ArrayStringValue.length() - 1);
-        return Arrays.asList(onlyValue.split(","));
+    public static List<String> convert(String arrayStringValue) {
+        String onlyValue = arrayStringValue.substring(1, arrayStringValue.length() - 1);
+        return Arrays.asList(onlyValue.split(REGEX));
     }
 }
