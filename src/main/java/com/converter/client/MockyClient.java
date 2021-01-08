@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient(name = "mocky", url = "${mocky-api.url}", configuration = {FeignConfiguration.class})
 public interface MockyClient {
 
-    @GetMapping("/de82756b449c4bc8a594d089cbeb44bf")
+    @GetMapping("/9a13cd523bfe49929bbddc22502f2aa0")
     User getJson();
 
-    @GetMapping("/c188d299a7564d758f52e172dc0c0028")
+    @GetMapping("/4bf6be4ac7cb46a9bf101a6cd56dd9dd")
     MultiValueMap getUrlencoded();
 }
